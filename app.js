@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'dev') {
 } else {
     // production
     console.log('in prod');
-    app.use((err, req, res, next) => {
+    app.use((err, req, res, _next) => {
         console.log('in mid error prod');
         const code = err.code || 500;
 
