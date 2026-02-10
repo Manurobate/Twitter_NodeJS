@@ -1,11 +1,9 @@
-extends ../layout
-
-block content
-    div(class="d-flex flex-row content mx-auto")
-        div(class="profile-container")
-            include ../includes/profile
-        div(class="flex-fill d-flex flex-column")
-            if tweets
-                each tweet in tweets
-                    div(class="card mb-2")
-                        .card-body= tweet.content
+if tweets
+    each tweet in tweets
+        div(class="card mb-2")
+            .card-body
+                .row
+                    .col-2 Avatar
+                    .col-8= tweet.content
+                    .col-2
+                        button(class="btn btn-danger float-right" tweetid=tweet._id) x
