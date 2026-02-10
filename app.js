@@ -2,32 +2,37 @@ const express = require('express');
 const path = require('path');
 const morgan = require("morgan");
 const errorHanlder = require('errorhandler');
-const index = require('./routes');
-require('./database');
 
 const app = express();
+
+// Variables d'environnement
+require('dotenv').config();
 const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || 'dev';
+const morganFormat = process.env.MORGAN_FORMAT || 'combined';
+
+// Connexion a MongoDB
+require('./database');
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // middlewares
-app.use(morgan('dev'));
+app.use(morgan(morganFormat));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Routes
-app.use(index);
+app.use(require('./routes'));
 
-if (process.env.NODE_ENV === 'dev') {
+if (env === 'dev') {
     app.use(errorHanlder());
 } else {
     // production
     console.log('in prod');
     app.use((err, req, res, _next) => {
-        console.log('in mid error prod');
         const code = err.code || 500;
 
         res.status(code).json({

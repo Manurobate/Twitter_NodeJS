@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
+const mongoUri = process.env.MONGODB_URI;
+if (!mongoUri) {
+    throw new Error('Missing MONGODB_URI in environment');
+}
+
 mongoose
-    .connect('mongodb://manu_twitter:azerty@192.168.1.100:27017/twitter')
-    .then(() => { console.log('Connected to MongoDB'); })
-    .catch((error) => { console.error(error); });
+    .connect(mongoUri)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error(error);
+    });
