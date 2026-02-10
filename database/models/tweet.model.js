@@ -5,7 +5,7 @@ const tweetSchema = schema({
     content: {
         type: String,
         required: [true, 'Il faut saisir quelquechose !'],
-        minlength: [1, 'Tweet trop court'],
+        minlength: [3, 'Tweet trop court'],
         maxlength: [140, 'Tweet trop long']
     }
 });

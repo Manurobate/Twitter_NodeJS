@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", function () {
 })
 
 function bindTweetDelete() {
-    const elements = document.querySelectorAll('.btn-danger');
+    const elements = document.querySelectorAll('#btnDeleteTweet');
     elements.forEach(function (element) {
         element.addEventListener('click', function (event) {
             const tweetId = event.target.getAttribute("tweetid");

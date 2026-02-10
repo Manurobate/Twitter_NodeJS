@@ -11,3 +11,11 @@ exports.createTweet = (tweet) => {
 exports.deleteTweet = (tweetId) => {
     return Tweet.findByIdAndDelete(tweetId);
 }
+
+exports.getTweet = (tweetId) => {
+    return Tweet.findById(tweetId);
+}
+
+exports.updateTweet = (tweetId, tweet) => {
+    return Tweet.findByIdAndUpdate(tweetId, {$set: {content: tweet.content}}, {runValidators: true});
+}

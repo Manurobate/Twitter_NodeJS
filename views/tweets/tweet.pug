@@ -2,8 +2,8 @@ extends ../layout
 
 block content
     script(src="/js/tweets.js")
-    div(class="d-flex flex-row content mx-auto")
-        div(class="profile-container")
+    .d-flex.flex-row.content.mx-auto
+        .profile-container
             include ../includes/profile
-        div(class="flex-fill d-flex flex-column" id="tweet-list-container")
+        .flex-fill.d-flex.flex-column#tweet-list-container
             include tweet-list

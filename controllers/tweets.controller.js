@@ -1,4 +1,4 @@
-const {getTweets, createTweet, deleteTweet} = require("../database/queries/tweets.queries");
+const {getTweets, createTweet, deleteTweet, getTweet, updateTweet} = require("../database/queries/tweets.queries");
 
 exports.tweetList = async (req, res, next) => {
     try {
@@ -11,7 +11,7 @@ exports.tweetList = async (req, res, next) => {
 
 exports.tweetNew = async (req, res, next) => {
     try {
-        res.render('tweets/tweet-form');
+        res.render('tweets/tweet-form', {tweet: {}});
     } catch (e) {
         next(e);
     }
@@ -23,7 +23,7 @@ exports.tweetCreate = async (req, res) => {
         res.redirect('/tweets');
     } catch (e) {
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
-        res.status(400).render('tweets/tweet-form', {errors});
+        res.status(400).render('tweets/tweet-form', {errors, tweet: {}});
     }
 }
 
@@ -34,5 +34,26 @@ exports.tweetDelete = async (req, res, next) => {
         res.render('tweets/tweet-list', {tweets});
     } catch (e) {
         next(e);
+    }
+}
+
+exports.tweetEdit = async (req, res, next) => {
+    try {
+        const tweet = await getTweet(req.params.tweetId);
+        res.render('tweets/tweet-form', {tweet});
+    } catch (e) {
+        next(e);
+    }
+}
+
+exports.tweetUpdate = async (req, res) => {
+    try {
+        await updateTweet(req.params.tweetId, req.body);
+        res.redirect('/tweets');
+    } catch (e) {
+        const tweet = await getTweet(req.params.tweetId);
+        tweet.content = req.body.content;
+        const errors = Object.keys(e.errors).map(key => e.errors[key].message);
+        res.status(400).render('tweets/tweet-form', {errors, tweet: tweet});
     }
 }

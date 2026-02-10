@@ -1,9 +1,12 @@
 if tweets
     each tweet in tweets
-        div(class="card mb-2")
+        .card.mb-2
             .card-body
                 .row
                     .col-2 Avatar
                     .col-8= tweet.content
                     .col-2
-                        button(class="btn btn-danger float-right" tweetid=tweet._id) x
+                        button.btn.btn-danger.float-right#btnDeleteTweet(tweetid=tweet._id)
+                            i.bi.bi-trash
+                        a.btn.btn-primary.mr-1.float-right(href=`/tweets/edit/${tweet._id}`)
+                            i.bi.bi-pencil
