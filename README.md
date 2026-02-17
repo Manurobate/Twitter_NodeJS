@@ -31,6 +31,8 @@ L'interface est rendue avec Pug et stylisee avec Bootstrap. Les donnees sont sto
 - `NODE_ENV`: `dev` ou `prod`.
 - `PORT`: port d'ecoute HTTP (defaut `3000`).
 - `MORGAN_FORMAT`: format de logs HTTP (defaut `combined`).
+- `SESSION_SECRET`: le secret utilisé pour signer la session
+- `SESSION_EXPIRATION`: La durée en jours avant expiration de la session (default `14`)
 
 ### Dev vs Prod
 
@@ -70,6 +72,8 @@ The UI is rendered with Pug and styled with Bootstrap. Data is stored in MongoDB
 - `NODE_ENV`: `dev` or `prod`.
 - `PORT`: HTTP listening port (default `3000`).
 - `MORGAN_FORMAT`: HTTP log format (default `combined`).
+- `SESSION_SECRET`: secret used to sign the session
+- `SESSION_EXPIRATION`: number of days before the session expires (default `14`)
 
 ### Dev vs Prod
 

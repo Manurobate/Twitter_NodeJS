@@ -10,7 +10,7 @@ const {
 
 router.get('/', tweetList)
 router.get('/new', tweetNew)
-router.get('/edit/:tweetId', tweetEdit);
+router.get('/:tweetId', tweetEdit);
 
 router.post('/', tweetCreate)
 router.post('/:tweetId', tweetUpdate)

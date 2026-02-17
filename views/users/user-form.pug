@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    .d-flex.flex-row.content.justify-content-center.mx-auto
+        form.card(method="post" action="/users/signup")
+            .card-header Inscription
+            .card-body
+                .form-group
+                    label Nom d'utilisateur
+                    input.form-control(type="text" name="username" value=user.username)
+                .form-group
+                    label Email
+                    input.form-control(type="email" name="email" value=user.email)
+                .form-group
+                    label Mot de passe
+                    input.form-control(type="password" name="password")
+                if errors
+                    ul.my-2
+                        each error in errors
+                            li.text-danger= error
+                .w-100
+                    input.btn.btn-primary.ml-auto.float-right(type="submit" value="Valider")
+                    a.btn.btn-danger.ml-auto.float-right.mr-1(href="/") Annuler
