@@ -6,18 +6,18 @@ block content
             .card-header Inscription
             .card-body
                 .form-group
-                    label Nom d'utilisateur
-                    input.form-control(type="text" name="username" value=user.username)
+                    label Email *
+                    input.form-control(type="email" name="email" value=user.email required)
                 .form-group
-                    label Email
-                    input.form-control(type="email" name="email" value=user.email)
+                    label Nom d'utilisateur *
+                    input.form-control(type="text" name="username" value=user.username required)
                 .form-group
-                    label Mot de passe
-                    input.form-control(type="password" name="password")
-                if errors
-                    ul.my-2
-                        each error in errors
-                            li.text-danger= error
+                    label Mot de passe *
+                    input.form-control(type="password" name="password" required)
                 .w-100
                     input.btn.btn-primary.ml-auto.float-right(type="submit" value="Valider")
                     a.btn.btn-danger.ml-auto.float-right.mr-1(href="/") Annuler
+    if errors
+    .alert.alert-danger.mt-3.w-50.mx-auto(role="alert")
+        each error in errors
+            div= error
