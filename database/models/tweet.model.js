@@ -7,7 +7,8 @@ const tweetSchema = schema({
         required: [true, 'Il faut saisir quelquechose !'],
         minlength: [3, 'Tweet trop court'],
         maxlength: [140, 'Tweet trop long']
-    }
+    },
+    author: {type: schema.Types.ObjectId, ref: 'user', required: true},
 });
 
 const Tweet = mongoose.model('tweets', tweetSchema);
