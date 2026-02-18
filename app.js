@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const errorHanlder = require('errorhandler');
 
 const app = express();
+exports.app = app;
 
 // Variables d'environnement
 require('dotenv').config();
@@ -11,8 +12,10 @@ const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'dev';
 const morganFormat = process.env.MORGAN_FORMAT || 'combined';
 
-// Connexion a MongoDB
+// Config
 require('./database');
+require('./config/session.config');
+require('./config/passport.config');
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));

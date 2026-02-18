@@ -9,7 +9,7 @@ exports.tweetList = async (req, res, next) => {
     }
 }
 
-exports.tweetNew = async (req, res, next) => {
+exports.tweetNew = (req, res, next) => {
     try {
         res.render('tweets/tweet-form', {tweet: {}});
     } catch (e) {

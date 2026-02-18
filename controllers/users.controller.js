@@ -1,7 +1,7 @@
 const {createUser} = require("../database/queries/users.queries");
 
 
-exports.signupForm = async (req, res, next) => {
+exports.signupForm = (req, res, next) => {
     try {
         res.render('users/user-form', {errors: null, user: {}});
     } catch (e) {

@@ -18,5 +18,12 @@ exports.createUser = async (body) => {
     } catch (e) {
         throw e;
     }
+}
 
+exports.findUserByEmail = (email) => {
+    return User.findOne({'local.email': email});
+}
+
+exports.findUserById = (id) => {
+    return User.findById(id);
 }
