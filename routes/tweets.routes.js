@@ -8,13 +8,15 @@ const {
     tweetUpdate
 } = require("../controllers/tweets.controller");
 
+const {requireAuth} = require("../config/security.config");
+
 router.get('/', tweetList)
-router.get('/new', tweetNew)
+router.get('/new', requireAuth, tweetNew)
 router.get('/:tweetId', tweetEdit);
 
-router.post('/', tweetCreate)
-router.post('/:tweetId', tweetUpdate)
+router.post('/', requireAuth, tweetCreate)
+router.post('/:tweetId', requireAuth, tweetUpdate)
 
-router.delete('/:tweetId', tweetDelete);
+router.delete('/:tweetId', requireAuth, tweetDelete);
 
 module.exports = router;
