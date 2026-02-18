@@ -14,11 +14,15 @@ exports.signupForm = (req, res, next) => {
     }
 };
 
-exports.signup = async (req, res) => {
+exports.signup = async (req, res, next) => {
     try {
-        await createUser(req.body);
-
-        res.redirect('/tweets');
+        const user = await createUser(req.body);
+        req.login(user, (err) => {
+            if (err) {
+                next(err)
+            }
+            res.redirect('/tweets');
+        })
     } catch (e) {
         const errors = e?.errors ? Object.keys(e.errors).map((key) => e.errors[key].message) : [e.message];
         res.status(400).render('users/user-form', {
