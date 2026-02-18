@@ -3,7 +3,7 @@ const {getTweets, createTweet, deleteTweet, getTweet, updateTweet} = require("..
 exports.tweetList = async (req, res, next) => {
     try {
         const tweets = await getTweets();
-        res.render('tweets/tweet', {tweets});
+        res.render('tweets/tweet', {tweets, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch (e) {
         next(e);
     }
@@ -11,7 +11,7 @@ exports.tweetList = async (req, res, next) => {
 
 exports.tweetNew = (req, res, next) => {
     try {
-        res.render('tweets/tweet-form', {tweet: {}});
+        res.render('tweets/tweet-form', {tweet: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch (e) {
         next(e);
     }
@@ -23,7 +23,12 @@ exports.tweetCreate = async (req, res) => {
         res.redirect('/tweets');
     } catch (e) {
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
-        res.status(400).render('tweets/tweet-form', {errors, tweet: {}});
+        res.status(400).render('tweets/tweet-form', {
+            errors,
+            tweet: {},
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user
+        });
     }
 }
 
@@ -40,7 +45,7 @@ exports.tweetDelete = async (req, res, next) => {
 exports.tweetEdit = async (req, res, next) => {
     try {
         const tweet = await getTweet(req.params.tweetId);
-        res.render('tweets/tweet-form', {tweet});
+        res.render('tweets/tweet-form', {tweet, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch (e) {
         next(e);
     }
@@ -54,6 +59,11 @@ exports.tweetUpdate = async (req, res) => {
         const tweet = await getTweet(req.params.tweetId);
         tweet.content = req.body.content;
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
-        res.status(400).render('tweets/tweet-form', {errors, tweet: tweet});
+        res.status(400).render('tweets/tweet-form', {
+            errors,
+            tweet: tweet,
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user
+        });
     }
 }

@@ -3,7 +3,12 @@ const {createUser} = require("../database/queries/users.queries");
 
 exports.signupForm = (req, res, next) => {
     try {
-        res.render('users/user-form', {errors: null, user: {}});
+        res.render('users/user-form', {
+            errors: null,
+            user: {},
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user
+        });
     } catch (e) {
         next(e);
     }
@@ -21,7 +26,7 @@ exports.signup = async (req, res) => {
             user: {
                 username: req.body?.username,
                 email: req.body?.email,
-            },
+            }, isAuthenticated: req.isAuthenticated(), currentUser: req.user
         });
     }
 };

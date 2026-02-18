@@ -5,9 +5,13 @@ navbar.navbar.navbar-expand-lg.navbar-light.bg-light
         span.navbar-toggler-icon
     .collapse.navbar-collapse
         ul.navbar-nav.ml-auto
-            li.nav-item.active
-                a.btn.btn-primary.btn-tweet.mr-3(href="/tweets/new") Tweet
-            li.nav-item
-                a.nav-link(href="/auth/login") Connexion
-            li.nav-item
-                a.nav-link(href="/users/signup") Inscription
+            if isAuthenticated
+                li.nav-item.active
+                    a.btn.btn-primary.btn-tweet.mr-3(href="/tweets/new") Tweet
+                li.nav-item
+                    a.nav-link(href="/auth/logout") Déconnexion
+            else
+                li.nav-item
+                    a.nav-link(href="/auth/login") Connexion
+                li.nav-item
+                    a.nav-link(href="/users/signup") Inscription
