@@ -5,12 +5,14 @@ const bcrypt = require('bcrypt');
 const userSchema = schema({
     username: {
         type: String,
+        unique: [true, 'Username déjà utilisé'],
         required: [true, 'Veuillez saisir un nom d\'utilisateur'],
         trim: true
     },
     local: {
         email: {
             type: String,
+            unique: [true, 'Email déjà utilisé'],
             required: [true, 'Veuillez saisir un email'],
             trim: true
         },
