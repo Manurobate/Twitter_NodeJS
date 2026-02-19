@@ -12,7 +12,7 @@ const {requireAuth} = require("../config/security.config");
 
 router.get('/', tweetList)
 router.get('/new', requireAuth, tweetNew)
-router.get('/:tweetId', tweetEdit);
+router.get('/:tweetId', requireAuth, tweetEdit);
 
 router.post('/', requireAuth, tweetCreate)
 router.post('/:tweetId', requireAuth, tweetUpdate)
