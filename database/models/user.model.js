@@ -25,6 +25,10 @@ const userSchema = schema({
                 message: 'Le mot de passe doit contenir au moins 12 caracteres, une majuscule, une minuscule et un chiffre'
             }
         }
+    },
+    avatar: {
+        type: String,
+        default: '/images/default_profile.png'
     }
 });
 

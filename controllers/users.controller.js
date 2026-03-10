@@ -1,5 +1,16 @@
 const {createUser} = require("../database/queries/users.queries");
-
+const path = require("path");
+const multer = require("multer");
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.join(__dirname, '../public/images/avatars'));
+        },
+        filename: (req, file, cb) => {
+            cb(null, `${Date.now()}-${file.originalname}`);
+        }
+    })
+});
 
 exports.signupForm = (req, res, next) => {
     try {
@@ -34,3 +45,17 @@ exports.signup = async (req, res, next) => {
         });
     }
 };
+
+exports.updateAvatar = [
+    upload.single("profile-input"),
+    async (req, res, next) => {
+        try {
+            const user = req.user;
+            user.avatar = `/images/avatars/${req.file.filename}`;
+            await user.save();
+            res.redirect('/tweets');
+        } catch (e) {
+            next(e);
+        }
+    }
+];
