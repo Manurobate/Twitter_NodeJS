@@ -4,9 +4,9 @@ if isAuthenticated
         .card-body
             form(id="profile-form" class="d-flex flex-row justify-content-center align-items-center" action="/users/update/avatar" method="post" enctype="multipart/form-data")
                 input(id="profile-input" name="profile-input" type="file" class="d-none")
-                img(id="profile-img" src=currentUser.avatar class="img-fluid")
+                img(id="profile-img" src=user.avatar class="img-fluid rounded-circle")
             .d-flex.flex-row.justify-content-center.align-items-center.my-3
-                p= `${currentUser.username} (${currentUser.local.email})`
+                p= `${user.username} (${user.local.email})`
             .text-center.d-flex.flex-row.justify-content-center.align-items-center
                 .flex-fill
                     p

@@ -22,6 +22,18 @@ body {
     max-height: 100px;
 }
 
+.tweet-author-avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.tweet-action-btn {
+    min-width: 32px;
+    padding: 0.2rem 0.4rem;
+    margin-left: 2px;
+}
+
 .btn-tweet {
     border-radius: 30px;
 }

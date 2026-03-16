@@ -3,10 +3,12 @@ if tweets
         .card.mb-2
             .card-body
                 .row
-                    .col-2 Avatar
+                    .col-2.text-center
+                        img.img-fluid.rounded-circle.tweet-author-avatar.mb-2(src=tweet.author.avatar, alt=`Avatar de ${tweet.author.username}`)
+                        .small.text-muted.text-truncate= tweet.author.username
                     .col-8= tweet.content
-                    .col-2
-                        button.btn.btn-danger.float-right#btnDeleteTweet(tweetid=tweet._id)
+                    .col-2.text-end
+                        a.btn.btn-danger.btn-sm.tweet-action-btn(href=`/tweets/delete/${tweet._id}`)
                             i.bi.bi-trash
-                        a.btn.btn-primary.mr-1.float-right(href=`/tweets/${tweet._id}`)
+                        a.btn.btn-primary.btn-sm.tweet-action-btn.me-1(href=`/tweets/${tweet._id}`)
                             i.bi.bi-pencil

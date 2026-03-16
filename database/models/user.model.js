@@ -29,6 +29,10 @@ const userSchema = schema({
     avatar: {
         type: String,
         default: '/images/default_profile.png'
+    },
+    following: {
+        type: [schema.Types.ObjectId],
+        ref: 'user',
     }
 });
 

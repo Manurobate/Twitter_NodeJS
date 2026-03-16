@@ -1,7 +1,7 @@
 const Tweet = require('../models/tweet.model');
 
 exports.getTweets = () => {
-    return Tweet.find();
+    return Tweet.find().populate('author', 'username avatar');
 }
 
 exports.createTweet = (tweet) => {
@@ -13,9 +13,18 @@ exports.deleteTweet = (tweetId) => {
 }
 
 exports.getTweet = (tweetId) => {
-    return Tweet.findById(tweetId);
+    return Tweet.findById(tweetId).populate('author', 'username avatar');
 }
 
 exports.updateTweet = (tweetId, tweet) => {
     return Tweet.findByIdAndUpdate(tweetId, {$set: {content: tweet.content}}, {runValidators: true});
+}
+
+exports.getCurrentUserTweetsWithFollowing = (user) => {
+    return Tweet.find({author: {$in: [...user.following, user._id]}})
+        .populate('author', 'username avatar');
+}
+
+exports.getUserTweetsFromUsername = (authorId) => {
+    return Tweet.find({author: authorId}).populate('author', 'username avatar');
 }
