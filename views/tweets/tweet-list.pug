@@ -4,8 +4,9 @@ if tweets
             .card-body
                 .row
                     .col-2.text-center
-                        img.img-fluid.rounded-circle.tweet-author-avatar.mb-2(src=tweet.author.avatar, alt=`Avatar de ${tweet.author.username}`)
-                        .small.text-truncate= tweet.author.username
+                        a.d-inline-block.text-reset.text-decoration-none(href=`/users/${tweet.author.username}`)
+                            img.img-fluid.rounded-circle.tweet-author-avatar.mb-2(src=tweet.author.avatar, alt=`Avatar de ${tweet.author.username}`)
+                            .small.text-truncate= tweet.author.username
                     .col-8= tweet.content
                     .col-2.text-end
                         if isAuthenticated && editable && tweet.author._id.toString() === currentUser._id.toString()
