@@ -1,4 +1,5 @@
-const {createUser} = require("../database/queries/users.queries");
+const {createUser, findUserByUsername} = require("../database/queries/users.queries");
+const {getUserTweetsFromUserId} = require("../database/queries/tweets.queries");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({
@@ -43,6 +44,23 @@ exports.signup = async (req, res, next) => {
                 email: req.body?.email,
             }, isAuthenticated: req.isAuthenticated(), currentUser: req.user
         });
+    }
+};
+
+exports.displayUserProfile = async (req, res, next) => {
+    try {
+        const username = req.params.username;
+        const user = await findUserByUsername(username);
+        const tweets = await getUserTweetsFromUserId(user._id);
+        res.render('tweets/tweet', {
+            tweets,
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user,
+            user,
+            editable: false
+        });
+    } catch (e) {
+        next(e);
     }
 };
 

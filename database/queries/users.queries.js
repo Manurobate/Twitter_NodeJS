@@ -27,3 +27,7 @@ exports.findUserByEmail = (email) => {
 exports.findUserById = (id) => {
     return User.findById(id);
 }
+
+exports.findUserByUsername = (username) => {
+    return User.findOne({'username': username});
+}

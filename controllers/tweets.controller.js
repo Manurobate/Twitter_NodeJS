@@ -18,7 +18,8 @@ exports.tweetList = async (req, res, next) => {
             tweets,
             isAuthenticated,
             currentUser: req.user,
-            user: req.user
+            user: req.user,
+            editable: true
         });
     } catch (e) {
         next(e);
