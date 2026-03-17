@@ -5,19 +5,25 @@ if isAuthenticated
             form(id="profile-form" class="d-flex flex-row justify-content-center align-items-center" action="/users/update/avatar" method="post" enctype="multipart/form-data")
                 input(id="profile-input" name="profile-input" type="file" class="d-none")
                 img(id="profile-img" src=user.avatar class="img-fluid rounded-circle")
-            .d-flex.flex-row.justify-content-center.align-items-center.my-3
+            .d-flex.flex-row.justify-content-center.align-items-center
                 p= `${user.username} (${user.local.email})`
-            .text-center.d-flex.flex-row.justify-content-center.align-items-center
+            if currentUser._id.toString() !== user._id.toString()
+                .d-flex.flex-row.justify-content-center.align-items-center
+                    if currentUser.following.map(objId => objId.toString()).includes(user._id.toString())
+                        a.btn.btn-primary.btn-unfollow.pointer-cursor(href='/users/unfollow/' + user._id) Ne plus suivre
+                    else
+                        a.btn.btn-outline-primary.btn-follow.pointer-cursor(href='/users/follow/' + user._id) Suivre
+            .text-center.d-flex.flex-row.justify-content-center.align-items-center.mt-3
                 .flex-fill
                     p
                         strong Tweets
                         br
-                        span(class="text-primary")= tweets.length
+                        span(class="text-primary")= tweets && tweets.filter(t => t.author._id.toString() === user._id.toString()).length
                 .flex-fill
                     p
                         strong Suivis
                         br
-                        span(class="text-primary") -
+                        span(class="text-primary")= user.following.length
 else
     .card.profile-container.mr-3.bg-white.d-flex.flex-column
         .card-body

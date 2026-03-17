@@ -82,3 +82,22 @@ body {
 .empty-search-menu {
     padding: 10px 15px;
 }
+
+.btn-follow {
+    color: #007bff !important;
+    border-radius: 30px;
+    border-width: 2px;
+    font-weight: bold;
+}
+
+.btn-follow:hover {
+    color: white !important;
+}
+
+.btn-unfollow {
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn-unfollow:hover {
+}

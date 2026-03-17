@@ -1,4 +1,11 @@
-const {createUser, findUserByUsername, searchUsers} = require("../database/queries/users.queries");
+const {
+    createUser,
+    findUserByUsername,
+    searchUsers,
+    findUserById,
+    addUserIdToCurrentUserFollowing,
+    removeUserIdToCurrentUserFollowing
+} = require("../database/queries/users.queries");
 const {getUserTweetsFromUserId} = require("../database/queries/tweets.queries");
 const path = require("path");
 const multer = require("multer");
@@ -87,4 +94,22 @@ exports.userList = async (req, res, next) => {
         next(e);
     }
 
+}
+
+exports.followUser = async (req, res, next) => {
+    try {
+        const [, user] = await Promise.all([addUserIdToCurrentUserFollowing(req.params.userId, req.user), findUserById(req.params.userId)])
+        res.redirect(`/users/${user.username}`);
+    } catch (e) {
+        next(e);
+    }
+}
+
+exports.unfollowUser = async (req, res, next) => {
+    try {
+        const [, user] = await Promise.all([removeUserIdToCurrentUserFollowing(req.params.userId, req.user), findUserById(req.params.userId)])
+        res.redirect(`/users/${user.username}`);
+    } catch (e) {
+        next(e);
+    }
 }

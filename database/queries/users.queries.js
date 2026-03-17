@@ -41,3 +41,13 @@ exports.searchUsers = (search) => {
 
     return User.find({username: {$regex: escapedSearch, $options: 'i'}});
 }
+
+exports.addUserIdToCurrentUserFollowing = (userId, currentUser) => {
+    currentUser.following = [...currentUser.following, userId];
+    return currentUser.save();
+}
+
+exports.removeUserIdToCurrentUserFollowing = (userId, currentUser) => {
+    currentUser.following = currentUser.following.filter(objId => objId.toString() !== userId);
+    return currentUser.save();
+}
