@@ -2,12 +2,17 @@ if isAuthenticated
     script(src="/js/profile.js")
     .card.profile-container.mr-3.bg-white.d-flex.flex-column
         .card-body
-            form(id="profile-form" class="d-flex flex-row justify-content-center align-items-center" action="/users/update/avatar" method="post" enctype="multipart/form-data")
-                input(id="profile-input" name="profile-input" type="file" class="d-none")
-                img(id="profile-img" src=user.avatar class="img-fluid rounded-circle")
-            .d-flex.flex-row.justify-content-center.align-items-center
-                p= `${user.username} (${user.local.email})`
-            if currentUser._id.toString() !== user._id.toString()
+            if currentUser._id.toString() === user._id.toString()
+                form(id="profile-form" class="d-flex flex-row justify-content-center align-items-center" action="/users/update/avatar" method="post" enctype="multipart/form-data")
+                    input(id="profile-input" name="profile-input" type="file" class="d-none")
+                    img(id="profile-img" src=user.avatar class="img-fluid rounded-circle")
+                .d-flex.flex-row.justify-content-center.align-items-center
+                    p= `${user.username} (${user.local.email})`
+            else
+                .d-flex.flex-row.justify-content-center.align-items-center
+                    img(id="profile-img" src=user.avatar class="img-fluid rounded-circle")
+                .d-flex.flex-row.justify-content-center.align-items-center
+                    p= `${user.username} (${user.local.email})`
                 .d-flex.flex-row.justify-content-center.align-items-center
                     if currentUser.following.map(objId => objId.toString()).includes(user._id.toString())
                         a.btn.btn-primary.btn-unfollow.pointer-cursor(href='/users/unfollow/' + user._id) Ne plus suivre
