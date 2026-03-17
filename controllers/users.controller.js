@@ -1,4 +1,4 @@
-const {createUser, findUserByUsername} = require("../database/queries/users.queries");
+const {createUser, findUserByUsername, searchUsers} = require("../database/queries/users.queries");
 const {getUserTweetsFromUserId} = require("../database/queries/tweets.queries");
 const path = require("path");
 const multer = require("multer");
@@ -77,3 +77,14 @@ exports.updateAvatar = [
         }
     }
 ];
+
+exports.userList = async (req, res, next) => {
+    try {
+        const users = await searchUsers(req.query.search);
+        console.log(users);
+        res.render('includes/search-menu', {users});
+    } catch (e) {
+        next(e);
+    }
+
+}

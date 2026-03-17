@@ -1,5 +1,9 @@
 const User = require('../models/user.model');
 
+const escapeRegex = (value) => {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
 exports.createUser = async (body) => {
     try {
         const newUser = new User({
@@ -30,4 +34,10 @@ exports.findUserById = (id) => {
 
 exports.findUserByUsername = (username) => {
     return User.findOne({'username': username});
+}
+
+exports.searchUsers = (search) => {
+    const escapedSearch = escapeRegex(search);
+
+    return User.find({username: {$regex: escapedSearch, $options: 'i'}});
 }

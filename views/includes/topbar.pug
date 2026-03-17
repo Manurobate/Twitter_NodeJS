@@ -1,9 +1,14 @@
+script(src="/js/search-bar.js")
 navbar.navbar.navbar-expand-lg.navbar-light.bg-white
     a.navbar-brand(href="/")
         img(width="30" height="30" src="/images/twitter.png")
     button.navbar-toggler
         span.navbar-toggler-icon
     .collapse.navbar-collapse
+        form.ml-auto
+            input.form-control#search-input(type="text" placeholder="Chercher un utilisateur")
+            #search-menu-container
+
         ul.navbar-nav.ml-auto
             if isAuthenticated
                 li.nav-item.active
